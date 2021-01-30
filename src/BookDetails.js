@@ -7,9 +7,6 @@ class BookDetails extends Component {
     book: PropTypes.object.isRequired,
     changeShelf: PropTypes.func.isRequired
   }
-  state = {
-    query: '',
-  }
   updateQuery = (query) => {
     this.setState(() => ({
       query: query.trim()
@@ -24,17 +21,16 @@ class BookDetails extends Component {
   }
 
   render() {
-    const { query } = this.state
     const { book } = this.props
-    console.log('Render aşaması')
-    console.log(book)
+    //console.log('Rendering')
+    //console.log(book)
 
     return (
             <div className="book">
             <div className="book-top">
             <div className="book-cover" style={{ height: 192, width: 128, backgroundImage: `url(${book.imageLinks !== undefined ? book.imageLinks.thumbnail: ''})` }}></div>
             <div className="book-shelf-changer">
-            <select value={book.shelf} onChange={(e) => this.changeShelfOfBook(e.target.value)}>
+            <select value={book.shelf!==undefined ? book.shelf : 'none'} onChange={(e) => this.changeShelfOfBook(e.target.value)}>
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
